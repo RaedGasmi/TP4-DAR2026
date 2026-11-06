@@ -1,21 +1,27 @@
-# TP4 : Sockets en mode non-connecté UDP 
+## Étape 3 : Chat bidirectionnel et diffusion
 
-## Étape 2 : Chat Unidirectionnel et Test avec un Seul Client
-
-Le serveur écoute sur le port **1234** avec un `DatagramSocket` lié via `InetSocketAddress`. Le client saisit un nom d'utilisateur, puis envoie chaque message sous forme de `DatagramPacket` au format `[NomUtilisateur] : message`. Le serveur reçoit chaque datagramme avec `receive()` et affiche l'adresse de l'expéditeur et le contenu du message.
+Le serveur mémorise l'adresse de chaque client qui lui écrit, puis retransmet chaque message à tous les autres clients, sauf à l'expéditeur. Côté client, un thread dédié à la réception permet d'envoyer et de recevoir en même temps.
 
 ### Exécution
 
 **Serveur**
 
-![Sortie du serveur](images/server_etape2.png)
+![Serveur](images/server_etape3.png)
 
-**Client**
+**Client 1**
 
-![Sortie du client](images/client_etape2.png)
+![Client 1](images/client_ahmed.png)
+
+**Client 2**
+
+![Client 2](images/client_salah.png)
+
+**Client 3**
+
+![Client 3](images/client_farah.png)
 
 ### Synthèse
 
-- Communication en mode non-connecté : pas de `accept()`, chaque datagramme est indépendant.
-- Communication unidirectionnelle : seul le client envoie, le serveur ne répond pas.
-- UDP ne garantit ni la livraison ni l'ordre des messages.
+- Le serveur enregistre chaque nouveau client et diffuse ses messages aux autres.
+- Un client ne reçoit jamais ses propres messages.
+- Les messages s'affichent en temps réel grâce au thread de réception.
